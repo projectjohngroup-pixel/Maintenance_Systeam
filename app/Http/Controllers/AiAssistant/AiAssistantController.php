@@ -4319,9 +4319,8 @@ class AiAssistantController extends Controller
     private function formatNumber(
         mixed $value
     ): string {
-        return number_format(
+        return pdsNumber(
             (float) $value,
-            2,
             ',',
             '.'
         );

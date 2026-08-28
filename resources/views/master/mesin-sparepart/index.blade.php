@@ -82,7 +82,7 @@
                         <td><b>{{ $item->machine?->kode_mesin }}</b> — {{ $item->machine?->nama_mesin }}</td>
                         <td>{{ $item->barang?->kode_barang }} — {{ $item->barang?->nama_spesifikasi }}</td>
                         <td>{{ $item->barang?->satuan?->nama_satuan ?? '-' }}</td>
-                        <td>{{ number_format((float) $item->qty, 2) }}</td>
+                        <td>{{ pdsNumber((float) $item->qty) }}</td>
                         <td>{{ $item->keterangan ?? '-' }}</td>
                         <td>
                             <div class="act-group">

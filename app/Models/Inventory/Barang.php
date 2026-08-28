@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
 class Barang extends Model
 {
     protected $table = 'barangs';
@@ -41,6 +40,22 @@ class Barang extends Model
     {
         return $this->hasMany(
             MachineSparepart::class,
+            'barang_id'
+        );
+    }
+
+    public function barangMasuks(): HasMany
+    {
+        return $this->hasMany(
+            BarangMasuk::class,
+            'barang_id'
+        );
+    }
+
+    public function barangKeluars(): HasMany
+    {
+        return $this->hasMany(
+            BarangKeluar::class,
             'barang_id'
         );
     }

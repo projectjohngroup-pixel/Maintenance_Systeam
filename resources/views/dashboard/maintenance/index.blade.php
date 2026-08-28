@@ -282,6 +282,24 @@
 
 
     {{-- =====================================================
+         FILTER
+    ====================================================== --}}
+
+    <form method="GET" action="{{ route('dashboard') }}" class="dashboard-filter" style="display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:6px;">
+            <label for="filterTahun" style="font-size:13px; font-weight:600; color:#374151;">Tahun</label>
+            <select name="tahun" id="filterTahun" style="padding:6px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:13px;">
+                @foreach($tahunList as $t)
+                    <option value="{{ $t }}" {{ ($filterTahun ?? now()->year) == $t ? 'selected' : '' }}>{{ $t }}</option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" style="padding:6px 14px; background:#2563eb; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">Terapkan</button>
+        <a href="{{ route('dashboard') }}" style="padding:6px 14px; background:#e5e7eb; color:#374151; border:none; border-radius:8px; font-size:13px; text-decoration:none;">Reset</a>
+    </form>
+
+
+    {{-- =====================================================
          WORK ORDER KPI
     ====================================================== --}}
 
@@ -584,7 +602,7 @@
             <div class="dashboard-card">
 
                 <div class="card-title">
-                    Work Order per Bulan
+                    Work Order per Bulan {{ $filterTahun ?? now()->year }}
                 </div>
 
                 <div class="card-subtitle">

@@ -166,6 +166,20 @@ class SatuanController extends Controller
                 ]);
         }
 
+        if (
+            $satuan
+                ->barangMasuks()
+                ->exists()
+        ) {
+
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'satuan' =>
+                        'Satuan tidak dapat dihapus karena masih digunakan oleh transaksi Barang Masuk.',
+                ]);
+        }
+
 
         $satuan->delete();
 

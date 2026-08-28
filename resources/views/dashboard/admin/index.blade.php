@@ -925,7 +925,7 @@
                         </span>
                         <span class="kh-label">Total<br>Work Order</span>
                     </div>
-                    <div class="kh-value">{{ number_format($totalWo) }}</div>
+                    <div class="kh-value">{{ pdsNumber($totalWo) }}</div>
                     <div class="kh-foot">{{ $deptLabel }} &bull; {{ $filterTahun }}</div>
                 </div>
 
@@ -937,7 +937,7 @@
                         <span class="kh-label">Completion<br>Rate</span>
                     </div>
                     <div class="kh-value">{{ $completionRate }}%</div>
-                    <div class="kh-foot">{{ number_format($statusCounts['CLOSE'] ?? 0) }} CLOSE dari {{ number_format($totalWo) }} WO</div>
+                    <div class="kh-foot">{{ pdsNumber($statusCounts['CLOSE'] ?? 0) }} CLOSE dari {{ pdsNumber($totalWo) }} WO</div>
                     <div class="kh-bar"><i style="width:{{ max(0, min(100, $completionRate)) }}%;"></i></div>
                 </div>
 
@@ -949,7 +949,7 @@
                         <span class="kh-label">On-Time<br>Rate</span>
                     </div>
                     <div class="kh-value">{{ $onTimeRate }}%</div>
-                    <div class="kh-foot">{{ number_format($closedOnTime) }} dari {{ number_format($closedTotal) }} close sesuai SLA</div>
+                    <div class="kh-foot">{{ pdsNumber($closedOnTime) }} dari {{ pdsNumber($closedTotal) }} close sesuai SLA</div>
                     <div class="kh-bar"><i style="width:{{ max(0, min(100, $onTimeRate)) }}%;"></i></div>
                 </div>
 
@@ -960,7 +960,7 @@
                         </span>
                         <span class="kh-label">Overdue<br>Work Order</span>
                     </div>
-                    <div class="kh-value">{{ number_format($overdueWo) }}</div>
+                    <div class="kh-value">{{ pdsNumber($overdueWo) }}</div>
                     <div class="kh-foot">Melewati batas SLA prioritas</div>
                 </div>
 
@@ -970,7 +970,7 @@
             <div class="chip-row" style="margin-bottom:20px;">
                 <span class="chip">
                     <span class="chip-label">WO Berjalan</span>
-                    <span class="chip-value">{{ number_format($woBerjalan) }}</span>
+                    <span class="chip-value">{{ pdsNumber($woBerjalan) }}</span>
                 </span>
                 <span class="chip">
                     <span class="chip-label">Avg Lead Time</span>
@@ -982,7 +982,7 @@
                 </span>
                 <span class="chip">
                     <span class="chip-label">Total Pending</span>
-                    <span class="chip-value">{{ number_format($totalPendingMenit) }} mnt</span>
+                    <span class="chip-value">{{ pdsNumber($totalPendingMenit) }} mnt</span>
                 </span>
             </div>
 
@@ -1004,7 +1004,7 @@
                             <div class="mini-stat">
                                 <i class="ms-dot" style="background:{{ $statusColors[$sk] }};"></i>
                                 <span>{{ $sk }}</span>
-                                <strong>{{ number_format($statusCounts[$sk]) }}</strong>
+                                <strong>{{ pdsNumber($statusCounts[$sk]) }}</strong>
                             </div>
                         @endforeach
                     </div>
@@ -1034,19 +1034,19 @@
                     <div class="health-tiles">
                         <div class="htile">
                             <span>Total Mesin</span>
-                            <strong>{{ number_format($totalMesin) }}</strong>
+                            <strong>{{ pdsNumber($totalMesin) }}</strong>
                         </div>
                         <div class="htile ok">
                             <span>Aktif</span>
-                            <strong>{{ number_format($mesinAktif) }}</strong>
+                            <strong>{{ pdsNumber($mesinAktif) }}</strong>
                         </div>
                         <div class="htile off">
                             <span>Tidak Aktif</span>
-                            <strong>{{ number_format($mesinTidakAktif) }}</strong>
+                            <strong>{{ pdsNumber($mesinTidakAktif) }}</strong>
                         </div>
                         <div class="htile kw">
                             <span>Total Daya</span>
-                            <strong>{{ number_format($totalKwAll, 2) }} kW</strong>
+                            <strong>{{ pdsNumber($totalKwAll) }} kW</strong>
                         </div>
                     </div>
 
@@ -1064,9 +1064,9 @@
                                 <div class="line-card">
                                     <div>
                                         <div class="line-name">{{ strtoupper($area->nama_area) }}</div>
-                                        <div class="line-sub">{{ number_format($area->machines_count) }} mesin</div>
+                                        <div class="line-sub">{{ pdsNumber($area->machines_count) }} mesin</div>
                                     </div>
-                                    <div class="line-kw">{{ number_format((float) ($area->machines_sum_kw ?? 0), 2) }} kW</div>
+                                    <div class="line-kw">{{ pdsNumber((float) ($area->machines_sum_kw ?? 0)) }} kW</div>
                                 </div>
                             @endforeach
                         </div>
@@ -1133,31 +1133,31 @@
 
                 <div class="kpi-card" style="--kc:#0ea5e9;">
                     <div class="kpi-label">Total Item Barang</div>
-                    <div class="kpi-value">{{ number_format($totalItems) }}</div>
+                    <div class="kpi-value">{{ pdsNumber($totalItems) }}</div>
                     <div class="kpi-foot">Jenis barang terdaftar</div>
                 </div>
 
                 <div class="kpi-card" style="--kc:#0891b2;">
                     <div class="kpi-label">Total Stok</div>
-                    <div class="kpi-value">{{ number_format($totalStock) }}</div>
+                    <div class="kpi-value">{{ pdsNumber($totalStock) }}</div>
                     <div class="kpi-foot">Akumulasi stok gudang</div>
                 </div>
 
                 <div class="kpi-card" style="--kc:#16a34a;">
                     <div class="kpi-label">Barang Masuk</div>
-                    <div class="kpi-value">{{ number_format($barangMasukQty) }}</div>
-                    <div class="kpi-foot">{{ number_format($barangMasukCount) }} transaksi masuk</div>
+                    <div class="kpi-value">{{ pdsNumber($barangMasukQty) }}</div>
+                    <div class="kpi-foot">{{ pdsNumber($barangMasukCount) }} transaksi masuk</div>
                 </div>
 
                 <div class="kpi-card" style="--kc:#dc2626;">
                     <div class="kpi-label">Barang Keluar</div>
-                    <div class="kpi-value">{{ number_format($barangKeluarQty) }}</div>
-                    <div class="kpi-foot">{{ number_format($barangKeluarCount) }} transaksi keluar</div>
+                    <div class="kpi-value">{{ pdsNumber($barangKeluarQty) }}</div>
+                    <div class="kpi-foot">{{ pdsNumber($barangKeluarCount) }} transaksi keluar</div>
                 </div>
 
                 <div class="kpi-card" style="--kc:#d97706;">
                     <div class="kpi-label">Stok Kritis</div>
-                    <div class="kpi-value">{{ number_format($lowStockItems) }}</div>
+                    <div class="kpi-value">{{ pdsNumber($lowStockItems) }}</div>
                     <div class="kpi-foot">Stok &le; stok minimum</div>
                 </div>
 
@@ -1184,8 +1184,8 @@
                                     @forelse($deptPerformance as $dp)
                                         <tr>
                                             <td style="font-weight:600;">{{ $dp['departemen'] }}</td>
-                                            <td>{{ number_format($dp['total']) }}</td>
-                                            <td>{{ number_format($dp['selesai']) }}</td>
+                                            <td>{{ pdsNumber($dp['total']) }}</td>
+                                            <td>{{ pdsNumber($dp['selesai']) }}</td>
                                             <td>{{ pdsFormatMinutes($dp['avgLeadMinutes'] ?? 0) }}</td>
                                             <td>{{ pdsFormatMinutes($dp['avgWorkMinutes'] ?? 0) }}</td>
                                         </tr>
@@ -1243,37 +1243,37 @@
 
                         <div class="kpi-card" style="--kc:#2563eb;">
                             <div class="kpi-label">Total User</div>
-                            <div class="kpi-value">{{ number_format($userStats['total']) }}</div>
+                            <div class="kpi-value">{{ pdsNumber($userStats['total']) }}</div>
                             <div class="kpi-foot">Seluruh akun terdaftar</div>
                         </div>
 
                         <div class="kpi-card" style="--kc:#16a34a;">
                             <div class="kpi-label">Aktif</div>
-                            <div class="kpi-value">{{ number_format($userStats['aktif']) }}</div>
+                            <div class="kpi-value">{{ pdsNumber($userStats['aktif']) }}</div>
                             <div class="kpi-foot">Status akun aktif</div>
                         </div>
 
                         <div class="kpi-card" style="--kc:#64748b;">
                             <div class="kpi-label">Nonaktif</div>
-                            <div class="kpi-value">{{ number_format($userStats['nonaktif']) }}</div>
+                            <div class="kpi-value">{{ pdsNumber($userStats['nonaktif']) }}</div>
                             <div class="kpi-foot">Akun dinonaktifkan</div>
                         </div>
 
                         <div class="kpi-card" style="--kc:#059669;">
                             <div class="kpi-label">Online</div>
-                            <div class="kpi-value">{{ number_format($userStats['online']) }}</div>
+                            <div class="kpi-value">{{ pdsNumber($userStats['online']) }}</div>
                             <div class="kpi-foot">Aktivitas &le; 5 menit</div>
                         </div>
 
                         <div class="kpi-card" style="--kc:#94a3b8;">
                             <div class="kpi-label">Offline</div>
-                            <div class="kpi-value">{{ number_format($userStats['offline']) }}</div>
+                            <div class="kpi-value">{{ pdsNumber($userStats['offline']) }}</div>
                             <div class="kpi-foot">Tidak aktif saat ini</div>
                         </div>
 
                         <div class="kpi-card" style="--kc:#7c3aed;">
                             <div class="kpi-label">Login Hari Ini</div>
-                            <div class="kpi-value">{{ number_format($userStats['loginHariIni']) }}</div>
+                            <div class="kpi-value">{{ pdsNumber($userStats['loginHariIni']) }}</div>
                             <div class="kpi-foot">Last login hari ini</div>
                         </div>
 

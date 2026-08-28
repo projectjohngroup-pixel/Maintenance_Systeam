@@ -19,7 +19,7 @@
     </div>
     <div class="card" style="padding:14px 18px;">
         <div style="font-size:11.5px;color:var(--pds-muted);text-transform:uppercase;letter-spacing:.06em;">Total KW</div>
-        <div style="font-size:26px;font-weight:700;margin-top:2px;">{{ number_format($totalKw, 2) }}</div>
+        <div style="font-size:26px;font-weight:700;margin-top:2px;">{{ pdsNumber($totalKw) }}</div>
     </div>
 </div>
 
@@ -85,7 +85,7 @@
                             'nama' => strtoupper($area->nama_area),
                             'keterangan' => $area->keterangan,
                             'mesin' => $area->machines_count,
-                            'kw' => number_format((float) ($area->machines_sum_kw ?? 0), 2, '.', ''),
+                            'kw' => pdsNumber((float) ($area->machines_sum_kw ?? 0), '.', ''),
                         ];
                     @endphp
                     <tr data-area='@json($areaPayload)'>
@@ -93,7 +93,7 @@
                         <td><b>{{ strtoupper($area->nama_area) }}</b></td>
                         <td>{{ $area->keterangan ?? '-' }}</td>
                         <td>{{ $area->machines_count }}</td>
-                        <td>{{ number_format((float) ($area->machines_sum_kw ?? 0), 2) }}</td>
+                        <td>{{ pdsNumber((float) ($area->machines_sum_kw ?? 0)) }}</td>
                         <td>
                             <div class="act-group">
                                 <button

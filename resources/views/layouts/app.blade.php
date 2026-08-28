@@ -10199,6 +10199,17 @@
                 return;
             }
 
+            /*
+            | Pastikan tidak ada overlay loading yang masih menutupi
+            | modal konfirmasi (misal sisa loading yang tidak selesai).
+            */
+
+            if (
+                window.hideGlobalLoading
+            ) {
+                window.hideGlobalLoading();
+            }
+
             pchPendingForm = form;
 
             if (pchModalText && message) {
@@ -10253,6 +10264,63 @@
                     pchModalClose();
 
                     if (form) {
+
+                        /*
+                        | Tampilkan loading global SAMPAI halaman baru selesai
+                        | dimuat. GlobalLoading middleware sengaja melewatkan
+                        | form [data-confirm], jadi loading dipicu di sini
+                        | setelah pengguna benar-benar mengkonfirmasi.
+                        */
+
+                        const methodOverride =
+                            form.querySelector(
+                                'input[name="_method"]'
+                            );
+
+                        const method =
+                            (
+                                methodOverride &&
+                                methodOverride.value
+                            )
+                            ? String(
+                                methodOverride.value
+                            ).toUpperCase()
+                            : String(
+                                form.getAttribute(
+                                    'method'
+                                ) || 'POST'
+                            ).toUpperCase();
+
+                        let loadingText =
+                            'Memproses...';
+
+                        if (
+                            method === 'DELETE'
+                        ) {
+                            loadingText =
+                                'Menghapus...';
+                        }
+                        else if (
+                            method === 'PUT' ||
+                            method === 'PATCH'
+                        ) {
+                            loadingText =
+                                'Memperbarui...';
+                        }
+                        else if (
+                            method === 'POST'
+                        ) {
+                            loadingText =
+                                'Menyimpan...';
+                        }
+
+                        if (
+                            window.showGlobalLoading
+                        ) {
+                            window.showGlobalLoading(
+                                loadingText
+                            );
+                        }
 
                         /*
                         | submit() native: tidak memicu event,

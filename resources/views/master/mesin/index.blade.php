@@ -23,7 +23,7 @@
     </div>
     <div class="card" style="padding:14px 18px;">
         <div style="font-size:11.5px;color:var(--pds-muted);text-transform:uppercase;letter-spacing:.06em;">Total KW</div>
-        <div style="font-size:26px;font-weight:700;margin-top:2px;">{{ number_format((float) $totalKw, 2) }}</div>
+        <div style="font-size:26px;font-weight:700;margin-top:2px;">{{ pdsNumber((float) $totalKw) }}</div>
     </div>
 </div>
 
@@ -130,7 +130,7 @@
                         <td><b>{{ $mesin->kode_mesin }}</b></td>
                         <td>{{ $mesin->nama_mesin }}</td>
                         <td>{{ $mesin->area ? strtoupper($mesin->area->nama_area) : '-' }}</td>
-                        <td>{{ $mesin->kw !== null ? number_format((float) $mesin->kw, 2) : '-' }}</td>
+                        <td>{{ $mesin->kw !== null ? pdsNumber((float) $mesin->kw) : '-' }}</td>
                         <td>
                             <span class="badge {{ strtolower($mesin->status) === 'aktif' ? 'badge-success' : 'badge-danger' }}">
                                 {{ $mesin->status }}

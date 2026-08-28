@@ -8,6 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasTable('api_tokens')) { return; }
+
         Schema::create('api_tokens', function (Blueprint $table) {
 
             $table->id();

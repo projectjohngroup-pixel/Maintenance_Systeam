@@ -25,4 +25,12 @@ class Satuan extends Model
             'satuan_id'
         );
     }
+
+    public function barangMasuks(): HasMany
+    {
+        return $this->hasMany(
+            BarangMasuk::class,
+            'satuan_id'
+        );
+    }
 }

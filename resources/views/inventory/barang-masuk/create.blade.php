@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Barang Masuk')
 
@@ -750,12 +750,7 @@
 
         <div class="inventory-summary-value">
             {{
-                number_format(
-                    $totalMasuk,
-                    2,
-                    ',',
-                    '.'
-                )
+                pdsNumber($totalMasuk, ',', '.')
             }}
         </div>
 
@@ -928,12 +923,7 @@
 
                         <td class="inventory-qty">
                             {{
-                                number_format(
-                                    $barangMasuk->qty,
-                                    2,
-                                    ',',
-                                    '.'
-                                )
+                                pdsNumber($barangMasuk->qty, ',', '.')
                             }}
                         </td>
 
@@ -1032,11 +1022,7 @@
                                         )
                                     }}"
                                     method="POST"
-                                    onsubmit="
-                                        return confirm(
-                                            'Hapus transaksi barang masuk ini?'
-                                        )
-                                    "
+                                    data-confirm="Hapus transaksi barang masuk ini? Stok akan dikembalikan."
                                 >
 
                                     @csrf
@@ -1129,7 +1115,7 @@
                 class="inventory-modal-close"
                 onclick="closeBarangMasukModal()"
             >
-                ×
+                Ã—
             </button>
 
         </div>
@@ -1480,7 +1466,7 @@
                 class="inventory-modal-close"
                 onclick="closeBarangPicker()"
             >
-                ×
+                Ã—
             </button>
 
         </div>

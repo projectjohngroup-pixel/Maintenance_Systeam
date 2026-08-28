@@ -1,4 +1,4 @@
-
+﻿
 @extends('layouts.app')
 
 @section('title', 'Laporan Harian')
@@ -549,7 +549,7 @@ body:has(.laporan-page) .content {
                 href="{{ route('laporan-harian.index') }}"
                 class="btn btn-gray"
             >
-                ⟳ Refresh
+                âŸ³ Refresh
             </a>
 
 
@@ -722,12 +722,7 @@ body:has(.laporan-page) .content {
                             <td class="laporan-qty">
 
                                 {{
-                                    number_format(
-                                        $barangMasuk->qty,
-                                        2,
-                                        ',',
-                                        '.'
-                                    )
+                                    pdsNumber($barangMasuk->qty, ',', '.')
                                 }}
 
                             </td>
@@ -864,12 +859,7 @@ body:has(.laporan-page) .content {
                             <td class="laporan-qty">
 
                                 {{
-                                    number_format(
-                                        $barangKeluar->qty,
-                                        2,
-                                        ',',
-                                        '.'
-                                    )
+                                    pdsNumber($barangKeluar->qty, ',', '.')
                                 }}
 
                             </td>
@@ -878,12 +868,7 @@ body:has(.laporan-page) .content {
                             <td class="laporan-qty">
 
                                 {{
-                                    number_format(
-                                        $barangKeluar->sisa_stok,
-                                        2,
-                                        ',',
-                                        '.'
-                                    )
+                                    pdsNumber($barangKeluar->sisa_stok, ',', '.')
                                 }}
 
                             </td>

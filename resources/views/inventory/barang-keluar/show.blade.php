@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Detail Barang Keluar')
 
@@ -314,7 +314,7 @@
                 <div class="bkd-row">
                     <span class="bkd-label">Qty Keluar</span>
                     <span class="bkd-value">
-                        {{ number_format($barangKeluar->qty, 2, ',', '.') }}
+                        {{ pdsNumber($barangKeluar->qty, ',', '.') }}
                         {{ $barangKeluar->satuan }}
                     </span>
                 </div>
@@ -322,14 +322,14 @@
                 <div class="bkd-row">
                     <span class="bkd-label">Stok Awal</span>
                     <span class="bkd-value plain">
-                        {{ number_format($barangKeluar->stok_awal, 2, ',', '.') }}
+                        {{ pdsNumber($barangKeluar->stok_awal, ',', '.') }}
                     </span>
                 </div>
 
                 <div class="bkd-row">
                     <span class="bkd-label">Sisa Stok</span>
                     <span class="bkd-value plain">
-                        {{ number_format($barangKeluar->sisa_stok, 2, ',', '.') }}
+                        {{ pdsNumber($barangKeluar->sisa_stok, ',', '.') }}
                     </span>
                 </div>
 

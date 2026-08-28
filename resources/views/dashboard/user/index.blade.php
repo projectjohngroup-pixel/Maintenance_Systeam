@@ -101,19 +101,19 @@
 
         <div class="kpi-card" style="--kc:#2563eb;">
             <div class="kpi-title">Total WO Saya</div>
-            <div class="kpi-value">{{ number_format($myTotal) }}</div>
+            <div class="kpi-value">{{ pdsNumber($myTotal) }}</div>
             <div class="kpi-foot">Seluruh work order dibuat</div>
         </div>
 
         <div class="kpi-card" style="--kc:#d97706;">
             <div class="kpi-title">Belum Selesai</div>
-            <div class="kpi-value">{{ number_format($myOpen) }}</div>
+            <div class="kpi-value">{{ pdsNumber($myOpen) }}</div>
             <div class="kpi-foot">Sedang diproses maintenance</div>
         </div>
 
         <div class="kpi-card" style="--kc:#16a34a;">
             <div class="kpi-title">Selesai</div>
-            <div class="kpi-value">{{ number_format($mySelesai) }}</div>
+            <div class="kpi-value">{{ pdsNumber($mySelesai) }}</div>
             <div class="kpi-foot">Status close / selesai</div>
         </div>
 

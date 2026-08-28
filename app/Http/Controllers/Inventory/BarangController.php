@@ -416,7 +416,31 @@ class BarangController extends Controller
     public function destroy(
         Barang $barang
     ) {
-        DepartmentAccess::assertCanAccessBarang(auth()->user(), $barang);
+        DepartmentAccess::assertCanDeleteBarang(auth()->user(), $barang);
+
+        if ($barang->barangMasuks()->exists()) {
+            return redirect()
+                ->route('barang.index')
+                ->withErrors([
+                    'barang' => 'Barang tidak dapat dihapus karena masih memiliki transaksi Barang Masuk.',
+                ]);
+        }
+
+        if ($barang->barangKeluars()->exists()) {
+            return redirect()
+                ->route('barang.index')
+                ->withErrors([
+                    'barang' => 'Barang tidak dapat dihapus karena masih memiliki transaksi Barang Keluar.',
+                ]);
+        }
+
+        if ($barang->machineSpareparts()->exists()) {
+            return redirect()
+                ->route('barang.index')
+                ->withErrors([
+                    'barang' => 'Barang tidak dapat dihapus karena masih dipakai sebagai sparepart mesin.',
+                ]);
+        }
 
         $barang->delete();
 

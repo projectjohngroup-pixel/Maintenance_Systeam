@@ -217,17 +217,17 @@ table.restock-table {
 
     <div class="restock-kpi" style="--kc:#2563eb;">
         <div class="label">Perlu Restock</div>
-        <div class="value">{{ number_format($barangs->count()) }}</div>
+        <div class="value">{{ pdsNumber($barangs->count()) }}</div>
     </div>
 
     <div class="restock-kpi" style="--kc:#dc2626;">
         <div class="label">Stok Habis</div>
-        <div class="value">{{ number_format($habisCount) }}</div>
+        <div class="value">{{ pdsNumber($habisCount) }}</div>
     </div>
 
     <div class="restock-kpi" style="--kc:#d97706;">
         <div class="label">Mencapai Minimum</div>
-        <div class="value">{{ number_format($minimumCount) }}</div>
+        <div class="value">{{ pdsNumber($minimumCount) }}</div>
     </div>
 
 </div>
@@ -267,11 +267,11 @@ table.restock-table {
                             {{ $barang->nama_spesifikasi }}
                         </td>
                         <td style="font-weight:700; color:{{ $habis ? '#dc2626' : 'inherit' }};">
-                            {{ number_format($barang->stok) }}
+                            {{ pdsNumber($barang->stok) }}
                         </td>
                         <td>{{ $barang->satuan->nama ?? '-' }}</td>
-                        <td>{{ number_format($barang->stok_minimum) }}</td>
-                        <td style="font-weight:700;">+{{ number_format($kebutuhan) }}</td>
+                        <td>{{ pdsNumber($barang->stok_minimum) }}</td>
+                        <td style="font-weight:700;">+{{ pdsNumber($kebutuhan) }}</td>
                         <td>
                             <span class="{{ $habis ? 'badge-habis' : 'badge-minimum' }}">
                                 {{ $habis ? 'HABIS' : 'MINIMUM' }}

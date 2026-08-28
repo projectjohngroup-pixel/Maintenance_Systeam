@@ -26,29 +26,18 @@ return Application::configure(
 
         /*
         |--------------------------------------------------------------------------
-        | TRUSTED PROXY (CLOUDFLARE TUNNEL)
+        | TRUST CLOUDFLARE / PROXY
         |--------------------------------------------------------------------------
-        |
-        | Request dari Cloudflare Tunnel masuk sebagai HTTP lokal
-        | (cloudflared -> web server). Tanpa konfigurasi ini Laravel
-        | menganggap request tidak aman sehingga:
-        |
-        | - asset()/route() menghasilkan URL http:// (mixed content)
-        | - form login submit ke http:// (peringatan "not secure")
-        |
-        | Dengan mempercayai proxy dan membaca forwarded headers,
-        | Laravel mengenali skema HTTPS asli dari Cloudflare.
-        |
         */
 
         $middleware->trustProxies(
             at: '*',
-            headers: Request::HEADER_X_FORWARDED_FOR
-                | Request::HEADER_X_FORWARDED_HOST
-                | Request::HEADER_X_FORWARDED_PORT
-                | Request::HEADER_X_FORWARDED_PROTO
-                | Request::HEADER_X_FORWARDED_PREFIX
-                | Request::HEADER_FORWARDED,
+            headers:
+                Request::HEADER_X_FORWARDED_FOR |
+                Request::HEADER_X_FORWARDED_HOST |
+                Request::HEADER_X_FORWARDED_PORT |
+                Request::HEADER_X_FORWARDED_PROTO |
+                Request::HEADER_X_FORWARDED_AWS_ELB
         );
 
 

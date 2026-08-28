@@ -172,6 +172,17 @@ class AppServiceProvider extends ServiceProvider
                 'migrations/Notif'
             ),
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | SYSTEM GUARD
+            |--------------------------------------------------------------------------
+            */
+
+            database_path(
+                'migrations/SystemGuard'
+            ),
+
         ];
 
 

@@ -598,6 +598,29 @@ class GlobalLoading
 
             /*
             |----------------------------------------------------------------------
+            | FORM KONFIRMASI HAPUS ([data-confirm])
+            |----------------------------------------------------------------------
+            |
+            | Form yang memakai [data-confirm] ditahan oleh modal
+            | konfirmasi terlebih dahulu (PCH confirm modal). Jika
+            | loading ikut dimunculkan di sini, overlay loading
+            | (z-index tertinggi) menutupi modal konfirmasi sehingga
+            | pengguna tidak bisa mengkonfirmasi dan request tidak
+            | pernah dikirim. Loading baru dimunculkan saat pengguna
+            | benar-benar menekan tombol konfirmasi.
+            */
+
+            if (
+                form.hasAttribute(
+                    'data-confirm'
+                )
+            ) {
+                return;
+            }
+
+
+            /*
+            |----------------------------------------------------------------------
             | METHOD DEFAULT
             |----------------------------------------------------------------------
             */

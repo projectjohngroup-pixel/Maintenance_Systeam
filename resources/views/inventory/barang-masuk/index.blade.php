@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Barang Masuk')
 
@@ -678,12 +678,7 @@
         <div class="inventory-summary-value">
 
             {{
-                number_format(
-                    $totalMasuk,
-                    2,
-                    ',',
-                    '.'
-                )
+                pdsNumber($totalMasuk, ',', '.')
             }}
 
         </div>
@@ -861,12 +856,7 @@
 
                         <td class="inventory-qty">
                             {{
-                                number_format(
-                                    $barangMasuk->qty,
-                                    2,
-                                    ',',
-                                    '.'
-                                )
+                                pdsNumber($barangMasuk->qty, ',', '.')
                             }}
                         </td>
 
@@ -1025,7 +1015,7 @@
                 class="inventory-modal-close"
                 onclick="closeBarangMasukModal()"
             >
-                ×
+                Ã—
             </button>
 
         </div>
@@ -1378,7 +1368,7 @@
                 class="inventory-modal-close"
                 onclick="closeBarangPicker()"
             >
-                ×
+                Ã—
             </button>
 
         </div>

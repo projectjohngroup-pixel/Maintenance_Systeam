@@ -116,7 +116,7 @@ class DashboardController extends Controller
                         'settings' => $settings,
                         'dashboardDepartment' => DepartmentAccess::scopedDepartment($user),
                     ],
-                    $this->getMaintenanceStats($user)
+                    $this->getMaintenanceStats($user, request())
                 )
             );
         }
@@ -618,12 +618,12 @@ class DashboardController extends Controller
 
             $startWorkAt = $this->woStartWorkAt($w);
 
-            if ($closed && $reportedAt && $finishedAt) {
+            if ($reportedAt && $finishedAt) {
                 $bucket['lead'][] =
                     $finishedAt->diffInMinutes($reportedAt);
             }
 
-            if ($closed && $startWorkAt && $finishedAt) {
+            if ($startWorkAt && $finishedAt) {
                 $bucket['work'][] =
                     $finishedAt->diffInMinutes($startWorkAt);
             }
@@ -671,6 +671,11 @@ class DashboardController extends Controller
 
         $trendQuery = WorkOrder::query()
             ->whereBetween('tanggal_kerusakan', [$startDate, $endDate]);
+
+        if ($bulan) {
+
+            $trendQuery->whereMonth('tanggal_kerusakan', $bulan);
+        }
 
         if ($departemen !== '') {
 
@@ -752,12 +757,17 @@ class DashboardController extends Controller
         | Status chart (semua status urut).
         */
 
-        $statusChartLabels = $statusKeys;
+        $statusChartLabels = [];
 
         $statusChartValues = [];
 
         foreach ($statusKeys as $key) {
-            $statusChartValues[] = $statusCounts[$key];
+
+            if ($statusCounts[$key] > 0) {
+
+                $statusChartLabels[] = $key;
+                $statusChartValues[] = $statusCounts[$key];
+            }
         }
 
 
@@ -776,7 +786,7 @@ class DashboardController extends Controller
                     trim(
                         (string) (
                             $w->priority
-                            ?: ''
+                            ?: 'NORMAL'
                         )
                     )
                 ) === $pk
@@ -825,7 +835,22 @@ class DashboardController extends Controller
         */
 
         $departemenGroups = WorkOrder::query()
-            ->whereBetween('tanggal_kerusakan', [$startDate, $endDate])
+            ->whereBetween('tanggal_kerusakan', [$startDate, $endDate]);
+
+        if ($bulan) {
+
+            $departemenGroups->whereMonth('tanggal_kerusakan', $bulan);
+        }
+
+        if ($departemen !== '') {
+
+            $departemenGroups->whereRaw(
+                'LOWER(TRIM(departemen)) = ?',
+                [strtolower($departemen)]
+            );
+        }
+
+        $departemenGroups = $departemenGroups
             ->whereNotNull('departemen')
             ->where('departemen', '<>', '')
             ->selectRaw('departemen as label, COUNT(*) as total')
@@ -854,10 +879,16 @@ class DashboardController extends Controller
 
         $inventoryInValues = array_fill(0, 12, 0);
 
-        $masukRows = BarangMasuk::query()
+        $masukQuery = BarangMasuk::query()
             ->whereBetween('tanggal_masuk', [$startDate, $endDate])
-            ->where('status', '<>', 'CANCELLED')
-            ->get(['tanggal_masuk', 'qty']);
+            ->where('status', '<>', 'CANCELLED');
+
+        if ($bulan) {
+
+            $masukQuery->whereMonth('tanggal_masuk', $bulan);
+        }
+
+        $masukRows = $masukQuery->get(['tanggal_masuk', 'qty']);
 
         foreach ($masukRows as $row) {
 
@@ -876,10 +907,16 @@ class DashboardController extends Controller
 
         $inventoryOutValues = array_fill(0, 12, 0);
 
-        $keluarRows = BarangKeluar::query()
+        $keluarQuery = BarangKeluar::query()
             ->whereBetween('tanggal_keluar', [$startDate, $endDate])
-            ->where('status', '<>', 'CANCELLED')
-            ->get(['tanggal_keluar', 'qty']);
+            ->where('status', '<>', 'CANCELLED');
+
+        if ($bulan) {
+
+            $keluarQuery->whereMonth('tanggal_keluar', $bulan);
+        }
+
+        $keluarRows = $keluarQuery->get(['tanggal_keluar', 'qty']);
 
         foreach ($keluarRows as $row) {
 
@@ -1230,9 +1267,13 @@ class DashboardController extends Controller
     |
     */
 
-    private function getMaintenanceStats($user): array
+    private function getMaintenanceStats($user, $request): array
     {
-        $year = now()->year;
+        $year = (int) $request->input('tahun', now()->year);
+
+        if ($year < 2000 || $year > 2100) {
+            $year = now()->year;
+        }
 
         $startDate = \Carbon\Carbon::create($year, 1, 1)->startOfYear();
 
@@ -1528,7 +1569,18 @@ class DashboardController extends Controller
             ->count();
 
 
+        $tahunList = range(
+            2026,
+            max(2045, now()->year)
+        );
+
         return [
+
+            // FILTER
+
+            'filterTahun' => $year,
+
+            'tahunList' => $tahunList,
 
             // STATISTIK WORK ORDER
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Barang Keluar')
 
@@ -740,12 +740,7 @@
             <div class="bk-summary-value">
 
                 {{
-                    number_format(
-                        $totalKeluar,
-                        2,
-                        ',',
-                        '.'
-                    )
+                    pdsNumber($totalKeluar, ',', '.')
                 }}
 
             </div>
@@ -1119,12 +1114,7 @@
                         <td class="bk-qty">
 
                             {{
-                                number_format(
-                                    $barangKeluar->qty,
-                                    2,
-                                    ',',
-                                    '.'
-                                )
+                                pdsNumber($barangKeluar->qty, ',', '.')
                             }}
 
                         </td>
@@ -1147,12 +1137,7 @@
                         <td class="bk-qty">
 
                             {{
-                                number_format(
-                                    $barangKeluar->stok_awal,
-                                    2,
-                                    ',',
-                                    '.'
-                                )
+                                pdsNumber($barangKeluar->stok_awal, ',', '.')
                             }}
 
                         </td>
@@ -1163,12 +1148,7 @@
                         <td class="bk-qty">
 
                             {{
-                                number_format(
-                                    $barangKeluar->sisa_stok,
-                                    2,
-                                    ',',
-                                    '.'
-                                )
+                                pdsNumber($barangKeluar->sisa_stok, ',', '.')
                             }}
 
                         </td>

@@ -1667,7 +1667,7 @@
                                             $workOrder->id
                                         ) }}"
                                         method="POST"
-                                        onsubmit="return confirm('Hapus Work Order {{ $workOrder->no_wo }}? Tindakan ini tidak dapat dibatalkan.');"
+                                        data-confirm="Hapus Work Order {{ $workOrder->no_wo }}? Tindakan ini tidak dapat dibatalkan."
                                     >
 
                                         @csrf

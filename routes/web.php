@@ -39,6 +39,14 @@ use App\Http\Controllers\Activity\ActivityLogController;
 
 /*
 |--------------------------------------------------------------------------
+| SYSTEM GUARD
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\SystemGuard\SystemGuardController;
+
+/*
+|--------------------------------------------------------------------------
 | WORK ORDER
 |--------------------------------------------------------------------------
 */
@@ -339,6 +347,35 @@ Route::middleware([
         '/log-aktivitas',
         [ActivityLogController::class, 'index']
     )->name('activity.index');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SYSTEM GUARD
+    |--------------------------------------------------------------------------
+    */
+
+    Route::prefix('system-guard')
+        ->name('system-guard.')
+        ->controller(SystemGuardController::class)
+        ->group(function () {
+
+            Route::get('/', 'dashboard')
+                ->name('dashboard');
+
+            Route::get('/api/status', 'apiStatus')
+                ->name('api.status');
+
+            Route::get('/api/poll', 'apiPoll')
+                ->name('api.poll');
+
+            Route::get('/incident/{incidentId}', 'incidentDetail')
+                ->name('incident.detail');
+
+            Route::get('/check', 'dashboard')
+                ->name('check');
+
+        });
 
 
     /*
